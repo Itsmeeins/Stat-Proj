@@ -48,6 +48,8 @@ if selected_section == "Statistics":
 
     # Display the plot
     st.pyplot(fig)
+    st.write("💡 All data")
+    st.write(df)
 
 elif selected_section == "Random 100 People":
     st.header('❤️ Random 100 People')
