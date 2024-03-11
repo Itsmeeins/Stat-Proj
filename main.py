@@ -21,7 +21,7 @@ st.set_page_config(page_title="Time Spent Tracker",
                    )
 
 # Sidebar to switch between sections
-selected_section = st.sidebar.selectbox("Select Section", ["Statistics", "Random 100 People", "Social Media Less Than 2 Hours", "Average Time Spent", "Social Media Over 5 Hours", "Margin of Error and Confidence Interval", "Compare Men and Women"])
+selected_section = st.sidebar.selectbox("Select Section", ["Statistics", "Random 100 People", "Social Media Less Than 2 Hours", "Social Media 3-4 Hours", "Social Media Over 5 Hours", "Margin of Error and Confidence Interval", "Compare Men and Women"])
 
 # Header
 st.markdown("""
@@ -85,20 +85,27 @@ elif selected_section == "Social Media Less Than 2 Hours":
     st.write(f"💡 Number of People Using Social Media for Less Than 2 Hours: {num_social_media_less_than_2_hours}")
     st.write(f"💡 Probability of People Using Social Media for Less Than 2 Hours: {probability_less_than_2_hours:.2%}")
 
-elif selected_section == "Average Time Spent":
-    st.header('❤️ Average Time Spent - Random 100 People')
+elif selected_section == "Social Media 3-4 Hours":
+    st.header('❤️ Social Media Usage - 3 to 4 Hours')
 
-    # Randomly select 100 people
+
     random_sample = df.sample(n=100, random_state=42)
 
-    # Display CSV data
-    st.write("💡 Randomly Selected 100 People:")
+
+    st.write("👇 Randomly Selected 100 People:")
     st.write(random_sample)
 
-    # Calculate the average time spent
-    avg_time_spent = random_sample['time_spent'].mean()
 
-    st.write(f"💡 Average Time Spent Among Random 100 People: {avg_time_spent:.2f} hours")
+    social_media_3_4_hours = random_sample[(random_sample['time_spent'] >= 3) & (random_sample['time_spent'] <= 4)]
+    num_social_media_3_4_hours = len(social_media_3_4_hours)
+
+
+    total_people = len(random_sample)
+    percentage_3_4_hours = (num_social_media_3_4_hours / total_people) * 100
+
+    st.write(f"💡 Number of People Using Social Media for 3 to 4 Hours: {num_social_media_3_4_hours}")
+    st.write(f"💡 Percentage of People Using Social Media for 3 to 4 Hours: {percentage_3_4_hours:.2f}%")
+
 
 elif selected_section == "Social Media Over 5 Hours":
     st.header('❤️ Social Media Usage - Over 5 Hours')
